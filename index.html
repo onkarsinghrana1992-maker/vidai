@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VidAI — India's #1 AI Video Platform</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 /* ══════════════════════════════════════════════
    DESIGN TOKENS
@@ -74,6 +75,54 @@ body.cursor-hover #curR{width:44px;height:44px;border-color:rgba(232,121,249,.6)
 .n-ghost:hover{border-color:var(--p2);color:var(--p2)}
 .n-cta{background:linear-gradient(135deg,var(--p),var(--b));border:none;color:#fff;padding:9px 26px;border-radius:10px;cursor:none;font-size:14px;font-weight:700;font-family:'Sora',sans-serif;box-shadow:0 0 30px rgba(34,197,94,.32);transition:all .25s;letter-spacing:.02em}
 .n-cta:hover{box-shadow:0 0 52px rgba(34,197,94,.58);transform:translateY(-1px)}
+
+/* ══ USER MENU ══ */
+.user-menu{position:relative;display:none}
+.user-menu.active{display:flex;align-items:center;gap:8px}
+.user-avatar{width:34px;height:34px;border-radius:50%;border:2px solid var(--p2);object-fit:cover;cursor:pointer}
+.user-avatar-placeholder{width:34px;height:34px;border-radius:50%;border:2px solid var(--p2);background:var(--p3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--p2);cursor:pointer}
+.user-credits{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);color:var(--p2);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700}
+.user-dropdown{position:absolute;top:44px;right:0;background:#0a1a0a;border:1px solid var(--border2);border-radius:14px;padding:8px;min-width:180px;box-shadow:0 20px 60px rgba(0,0,0,.6);display:none;z-index:1001}
+.user-menu:hover .user-dropdown{display:block}
+.user-dropdown a{display:block;padding:10px 14px;color:var(--muted2);text-decoration:none;font-size:13px;border-radius:8px;transition:all .2s}
+.user-dropdown a:hover{background:var(--glass2);color:var(--text)}
+.user-dropdown hr{border:none;border-top:1px solid var(--border);margin:6px 0}
+.nav-auth-btns{display:flex;gap:10px}
+
+/* ══ MOBILE ══ */
+@media(max-width:768px){
+  body{cursor:auto}
+  #cur,#curR{display:none}
+  .nav{padding:0 16px}
+  .nav-in{gap:0;height:60px}
+  .nav-links{display:none}
+  .logo{font-size:18px}
+  .nav-r{gap:8px}
+  .n-ghost{padding:6px 14px;font-size:13px}
+  .n-cta{padding:7px 16px;font-size:13px}
+  .hero{grid-template-columns:1fr;padding:80px 20px 40px;gap:40px;min-height:auto}
+  .hero-r{display:none}
+  .hero-h{font-size:38px}
+  .hero-sub{font-size:15px}
+  .hero-stats{gap:20px}
+  .hnum{font-size:24px}
+  .sec{padding:60px 20px}
+  .sec-h{font-size:clamp(28px,7vw,48px)}
+  .pg{grid-template-columns:1fr;gap:16px;padding:0 4px}
+  .pc.ph{transform:none}
+  .tools-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .tc{min-width:unset}
+  .modal{padding:28px 20px;margin:16px}
+  .cat-strip{gap:8px;padding:0 20px}
+  .cat-pill{padding:7px 14px;font-size:12px}
+  .why-grid{grid-template-columns:1fr}
+  .comp-table{font-size:12px}
+  .comp-table th,.comp-table td{padding:8px 6px}
+  .ppv-grid{grid-template-columns:1fr}
+  .cr-ref{grid-template-columns:1fr 1fr}
+  .hero-btns{flex-direction:column;align-items:flex-start}
+  .btn-primary,.btn-outline{width:100%;text-align:center;justify-content:center}
+}
 
 /* ══════════════════════════════════════════════
    HERO
@@ -1033,8 +1082,20 @@ body::before{
       <a href="#pricing">Pricing</a>
     </div>
     <div class="nav-r">
-      <button type="button" class="n-ghost" onclick="openModal('login')">Sign In</button>
-      <button type="button" class="n-cta" onclick="openModal('signup')">Start Free →</button>
+      <div class="nav-auth-btns" id="navAuthBtns">
+        <button type="button" class="n-ghost" onclick="openModal('login')">Sign In</button>
+        <button type="button" class="n-cta" onclick="openModal('signup')">Start Free →</button>
+      </div>
+      <div class="user-menu" id="userMenu">
+        <span class="user-credits" id="navCredits">0 cr</span>
+        <div class="user-avatar-placeholder" id="userAvatar">U</div>
+        <div class="user-dropdown">
+          <a href="#">Dashboard</a>
+          <a href="#">My Videos</a>
+          <hr>
+          <a href="#" onclick="signOut(); return false;">Sign Out</a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
@@ -2031,14 +2092,15 @@ body::before{
       <button type="button" id="signupTab" onclick="switchTab('signup')">Sign Up</button>
     </div>
     <p class="modal-perk" id="signupPerk" style="display:none">Get 10 free credits on signup!</p>
-    <input class="modal-inp" type="email" placeholder="Enter your email">
-    <input class="modal-inp" type="password" placeholder="Password">
-    <button type="button" class="modal-sub" id="modalSubmitBtn">Sign In →</button>
+    <input class="modal-inp" id="authEmail" type="email" placeholder="Enter your email">
+    <input class="modal-inp" id="authPassword" type="password" placeholder="Password">
+    <button type="button" class="modal-sub" id="modalSubmitBtn" onclick="handleAuth()">Sign In →</button>
     <div class="modal-div"><span>or</span></div>
-    <button type="button" class="modal-gg">
+    <button type="button" class="modal-gg" onclick="signInWithGoogle()">
       <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/></svg>
       Continue with Google
     </button>
+    <p id="authError" style="color:#f87171;font-size:13px;margin-top:8px;text-align:center;display:none"></p>
   </div>
 </div>
 
@@ -2168,6 +2230,7 @@ if (baWrap) {
 function openModal(t) { document.getElementById('authModal').classList.add('open'); switchTab(t); }
 function closeModal() { document.getElementById('authModal').classList.remove('open'); }
 function switchTab(t) {
+  currentTab = t;
   document.getElementById('loginTab').className = t === 'login' ? 'tab-on' : '';
   document.getElementById('signupTab').className = t === 'signup' ? 'tab-on' : '';
   document.getElementById('signupPerk').style.display = t === 'signup' ? 'block' : 'none';
@@ -2175,18 +2238,96 @@ function switchTab(t) {
 }
 document.getElementById('authModal').addEventListener('click', function (e) { if (e.target === this) closeModal(); });
 
+// ═══ SUPABASE AUTH ═══
+const SUPABASE_URL = 'https://higufnzhndyvuvnextqt.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpZ3VmbnpobmR5dnV2bmV4dHF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0NDEzNDksImV4cCI6MjA5MTAxNzM0OX0.KjUPLjGUDl7ifC1Og1IRFB49-7TK4-iirBAt4SOUJns';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentUser = null;
+let currentTab = 'login';
+
+async function initAuth() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) updateUIForUser(session.user);
+  sb.auth.onAuthStateChange((event, session) => {
+    if (session) { updateUIForUser(session.user); closeModal(); }
+    else { updateUIForLogout(); }
+  });
+}
+
+async function updateUIForUser(user) {
+  currentUser = user;
+  document.getElementById('navAuthBtns').style.display = 'none';
+  const um = document.getElementById('userMenu');
+  um.classList.add('active');
+  const name = user.user_metadata?.full_name || user.email || 'U';
+  document.getElementById('userAvatar').textContent = name[0].toUpperCase();
+  // fetch credits
+  const { data } = await sb.from('profiles').select('credits').eq('id', user.id).single();
+  if (data) document.getElementById('navCredits').textContent = data.credits + ' cr';
+}
+
+function updateUIForLogout() {
+  currentUser = null;
+  document.getElementById('navAuthBtns').style.display = 'flex';
+  document.getElementById('userMenu').classList.remove('active');
+}
+
+async function signInWithGoogle() {
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.origin }
+  });
+  if (error) showAuthError(error.message);
+}
+
+async function handleAuth() {
+  const email = document.getElementById('authEmail').value.trim();
+  const password = document.getElementById('authPassword').value;
+  const btn = document.getElementById('modalSubmitBtn');
+  if (!email || !password) { showAuthError('Email aur password daalo'); return; }
+  btn.textContent = 'Please wait...'; btn.disabled = true;
+  let result;
+  if (currentTab === 'login') {
+    result = await sb.auth.signInWithPassword({ email, password });
+  } else {
+    result = await sb.auth.signUp({ email, password });
+    if (!result.error) { showAuthError('✅ Check your email to confirm signup!'); btn.textContent = 'Sign Up →'; btn.disabled = false; return; }
+  }
+  if (result.error) { showAuthError(result.error.message); btn.textContent = currentTab === 'login' ? 'Sign In →' : 'Create Account →'; btn.disabled = false; }
+}
+
+function showAuthError(msg) {
+  const el = document.getElementById('authError');
+  el.textContent = msg; el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 4000);
+}
+
+async function signOut() {
+  await sb.auth.signOut();
+  updateUIForLogout();
+}
+
+initAuth();
+
 // ═══ PAYMENT ═══
 async function handlePayment(plan) {
+  if (!currentUser) { openModal('signup'); return; }
   const btn = document.getElementById(plan + 'Btn'), orig = btn.textContent;
-  btn.textContent = 'Redirecting...'; btn.disabled = true;
+  btn.textContent = 'Processing...'; btn.disabled = true;
   try {
-    const r = await fetch('/api/payment', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ plan, userId: 'user-id', userEmail: 'user@email.com' }) });
+    const r = await fetch('/.netlify/functions/payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan, userId: currentUser.id, userEmail: currentUser.email })
+    });
     const d = await r.json();
     if (d.redirectUrl) { window.location.href = d.redirectUrl; return; }
     alert('Payment error: ' + (d.error || 'Please try again'));
-  } catch (e) { openModal('signup'); }
+  } catch (e) { alert('Payment service unavailable. WhatsApp karo: +91 6283830128'); }
   btn.textContent = orig; btn.disabled = false;
 }
+
 const uP = new URLSearchParams(location.search);
 if (uP.get('payment')) {
   const t = document.getElementById('payToast'), m = document.getElementById('payToastMsg');
