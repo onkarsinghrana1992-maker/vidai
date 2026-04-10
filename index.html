@@ -2363,7 +2363,7 @@ async function signOut() {
 }
 
 initAuth();
-function handleFileUpload(input) {   const file = input.files[0];   if (file) {     document.getElementById('fileName').textContent = '✅ ' + file.name;     window.uploadedFile = file;   } }  function handleFileUpload(input) {   const file = input.files[0];   if (file) {     document.getElementById('fileName').textContent = '✅ ' + file.name;     window.uploadedFile = file;   } }  async function generateVideo() {   const prompt = document.getElementById('promptArea')?.value || '';   if (!prompt.trim()) { alert('Prompt likho pehle!'); return; }   const tool = document.getElementById('toolDropLabel')?.textContent || 'Text to Video';   alert('✅ Request mili!
+function handleFileUpload(input) {   const file = input.files[0];   if (file) {     document.getElementById('fileName').textContent = '✅ ' + file.name;     window.uploadedFile = file;   } }  async function generateVideo() {   const prompt = document.getElementById('promptArea')?.value || '';   if (!prompt.trim()) { alert('Prompt likho pehle!'); return; }   const tool = document.getElementById('toolDropLabel')?.textContent || 'Text to Video';   alert('Request mili! Tool: ' + tool + ' | Prompt: ' + prompt); }
 
 Tool: ' + tool + '
 Prompt: ' + prompt + '
