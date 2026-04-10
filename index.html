@@ -76,7 +76,71 @@ body.cursor-hover #curR{width:44px;height:44px;border-color:rgba(232,121,249,.6)
 .n-cta{background:linear-gradient(135deg,var(--p),var(--b));border:none;color:#fff;padding:9px 26px;border-radius:10px;cursor:none;font-size:14px;font-weight:700;font-family:'Sora',sans-serif;box-shadow:0 0 30px rgba(34,197,94,.32);transition:all .25s;letter-spacing:.02em}
 .n-cta:hover{box-shadow:0 0 52px rgba(34,197,94,.58);transform:translateY(-1px)}
 
-/* ══ USER MENU ══ */
+/* ══ TOOL DROPDOWN ══ */
+.tool-drop-wrap{position:relative;margin-bottom:14px}
+.tool-drop-btn{width:100%;background:rgba(0,0,0,.45);border:1px solid rgba(34,197,94,.22);border-radius:10px;padding:13px 16px;color:#fff;font-size:14px;font-family:'Sora',sans-serif;cursor:pointer;display:flex;align-items:center;gap:10px;transition:border-color .25s}
+.tool-drop-btn:hover{border-color:rgba(34,197,94,.5)}
+.tool-drop-menu{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#080f08;border:1px solid rgba(34,197,94,.22);border-radius:12px;padding:6px;z-index:500;display:none;max-height:320px;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.7)}
+.tool-drop-menu.open{display:block}
+.tdi-group{padding:8px 12px 4px;font-size:10px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:2px}
+.tdi{padding:10px 14px;border-radius:8px;font-size:13px;color:var(--muted2);cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all .15s}
+.tdi:hover{background:rgba(34,197,94,.1);color:var(--text)}
+.tdi-cr{font-size:11px;font-weight:700;color:var(--p2);background:rgba(34,197,94,.1);padding:2px 8px;border-radius:20px}
+
+/* ══ GEN GRID ══ */
+.gen-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.gen-preview-col{display:flex;flex-direction:column;gap:0}
+.gen-preview-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--r2);aspect-ratio:16/9;position:relative;overflow:hidden}
+.gen-stat-box{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--r);padding:16px;text-align:center}
+.gen-stat-num{font-family:'Sora',sans-serif;font-size:24px;font-weight:900;background:linear-gradient(135deg,var(--p2),var(--b2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gen-stat-lbl{font-size:10px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:2px}
+
+/* ══ MOBILE FULL FIX ══ */
+@media(max-width:768px){
+  body{cursor:auto}
+  #cur,#curR{display:none}
+  #pCanvas{display:none}
+  .orb1,.orb2,.orb3{display:none}
+  .nav{padding:0 16px}
+  .nav-in{gap:0;height:60px}
+  .nav-links{display:none}
+  .logo{font-size:18px}
+  .nav-r{gap:6px}
+  .n-ghost{padding:6px 12px;font-size:12px}
+  .n-cta{padding:7px 14px;font-size:12px}
+  .hero{grid-template-columns:1fr!important;padding:80px 16px 40px;gap:32px;min-height:auto}
+  .hero-r{display:none}
+  .hero-h{font-size:36px!important}
+  .hero-sub{font-size:15px;max-width:100%}
+  .hero-stats{gap:16px}
+  .hnum{font-size:22px}
+  .hero-btns{flex-direction:column}
+  .btn-primary,.btn-outline{width:100%;text-align:center;justify-content:center}
+  .sec{padding:52px 16px}
+  .sec-h{font-size:clamp(26px,7vw,44px)!important}
+  .gen-grid{grid-template-columns:1fr!important;gap:20px}
+  .gen-preview-col{display:none}
+  .gen-panel{padding:20px}
+  .gen-opts{flex-direction:column;gap:14px}
+  .gpills{flex-wrap:wrap;gap:6px}
+  .gpill{padding:8px 12px;font-size:12px}
+  .pg{grid-template-columns:1fr!important;gap:14px;padding:0}
+  .pc.ph{transform:none!important}
+  .tools-grid,.masonry{grid-template-columns:1fr 1fr!important}
+  .tc{min-width:unset}
+  .modal{padding:24px 18px;margin:12px;border-radius:18px}
+  .cat-strip{gap:6px;padding:0 16px;flex-wrap:nowrap;overflow-x:auto}
+  .cat-pill{padding:6px 12px;font-size:11px;white-space:nowrap}
+  .why-grid{grid-template-columns:1fr!important}
+  .comp-wrap{overflow-x:auto}
+  .comp-table{font-size:11px;min-width:600px}
+  .ppv-grid{grid-template-columns:1fr!important}
+  .cr-ref{grid-template-columns:1fr 1fr}
+  .hero-vid-frame{max-width:280px}
+  .sec-vid-bg{display:none}
+  .nav-auth-btns{gap:6px}
+  .user-credits{display:none}
+}
 .user-menu{position:relative;display:none}
 .user-menu.active{display:flex;align-items:center;gap:8px}
 .user-avatar{width:34px;height:34px;border-radius:50%;border:2px solid var(--p2);object-fit:cover;cursor:pointer}
@@ -88,41 +152,6 @@ body.cursor-hover #curR{width:44px;height:44px;border-color:rgba(232,121,249,.6)
 .user-dropdown a:hover{background:var(--glass2);color:var(--text)}
 .user-dropdown hr{border:none;border-top:1px solid var(--border);margin:6px 0}
 .nav-auth-btns{display:flex;gap:10px}
-
-/* ══ MOBILE ══ */
-@media(max-width:768px){
-  body{cursor:auto}
-  #cur,#curR{display:none}
-  .nav{padding:0 16px}
-  .nav-in{gap:0;height:60px}
-  .nav-links{display:none}
-  .logo{font-size:18px}
-  .nav-r{gap:8px}
-  .n-ghost{padding:6px 14px;font-size:13px}
-  .n-cta{padding:7px 16px;font-size:13px}
-  .hero{grid-template-columns:1fr;padding:80px 20px 40px;gap:40px;min-height:auto}
-  .hero-r{display:none}
-  .hero-h{font-size:38px}
-  .hero-sub{font-size:15px}
-  .hero-stats{gap:20px}
-  .hnum{font-size:24px}
-  .sec{padding:60px 20px}
-  .sec-h{font-size:clamp(28px,7vw,48px)}
-  .pg{grid-template-columns:1fr;gap:16px;padding:0 4px}
-  .pc.ph{transform:none}
-  .tools-grid{grid-template-columns:1fr 1fr;gap:12px}
-  .tc{min-width:unset}
-  .modal{padding:28px 20px;margin:16px}
-  .cat-strip{gap:8px;padding:0 20px}
-  .cat-pill{padding:7px 14px;font-size:12px}
-  .why-grid{grid-template-columns:1fr}
-  .comp-table{font-size:12px}
-  .comp-table th,.comp-table td{padding:8px 6px}
-  .ppv-grid{grid-template-columns:1fr}
-  .cr-ref{grid-template-columns:1fr 1fr}
-  .hero-btns{flex-direction:column;align-items:flex-start}
-  .btn-primary,.btn-outline{width:100%;text-align:center;justify-content:center}
-}
 
 /* ══════════════════════════════════════════════
    HERO
@@ -1201,48 +1230,45 @@ body::before{
 <section class="sec gen-sec" id="demo">
   <div class="sec-label reveal">TRY IT NOW</div>
   <h2 class="sec-h reveal">Generate Your <span class="grad">First Video</span></h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start" class="reveal d1">
+  <div class="gen-grid reveal d1">
     <div class="gen-panel">
-      <select class="gen-sel" id="toolSelect" onchange="updatePanel()">
-        <optgroup label="Video Generation">
-          <option value="ttv">Text to Video</option>
-          <option value="itv">Image to Video</option>
-          <option value="stv">Script to Video</option>
-          <option value="pa">Photo Animate</option>
-          <option value="tp">Talking Photo</option>
-          <option value="vtv">Video to Video</option>
-          <option value="ve">Video Extend</option>
-        </optgroup>
-        <optgroup label="Face & Avatar">
-          <option value="fs">Face Swap</option>
-          <option value="ls">Lip Sync</option>
-          <option value="ac">Avatar Create</option>
-          <option value="ta">Talking Avatar</option>
-          <option value="at_cs">Age Transform (Coming Soon)</option>
-        </optgroup>
-        <optgroup label="Voice & Audio">
-          <option value="vc_cs">Voice Clone (Coming Soon)</option>
-          <option value="vt_cs">Video Translate (Coming Soon)</option>
-          <option value="mg_cs">Music Generator (Coming Soon)</option>
-          <option value="se">Sound Effects</option>
-        </optgroup>
-        <optgroup label="Video Editing">
-          <option value="br">Background Remove</option>
-          <option value="aie">AI Enhance</option>
-          <option value="or">Object Remove</option>
-          <option value="sr">Sky Replace</option>
-          <option value="cg">Color Grading</option>
-          <option value="vs_cs">Video Stabilizer (Coming Soon)</option>
-          <option value="sm_cs">Slow Motion (Coming Soon)</option>
-        </optgroup>
-        <optgroup label="Effects">
-          <option value="stt">Style Transfer</option>
-          <option value="cap">Auto Captions</option>
-          <option value="tl_cs">Time Lapse (Coming Soon)</option>
-          <option value="dg">Dance Generator</option>
-        </optgroup>
-      </select>
-      <textarea class="gen-ta" id="promptArea" placeholder="Describe your video... e.g. 'A Bollywood actress dancing at golden hour in slow motion'"></textarea>
+
+      <!-- CUSTOM TOOL DROPDOWN -->
+      <label class="glbl" style="margin-bottom:8px;display:block">Select Tool</label>
+      <div class="tool-drop-wrap" id="toolDropWrap">
+        <button type="button" class="tool-drop-btn" id="toolDropBtn" onclick="toggleToolDrop()">
+          <span id="toolDropIcon">🎬</span>
+          <span id="toolDropLabel" style="flex:1;text-align:left">Text to Video</span>
+          <span id="toolDropCr" style="color:var(--p2);font-size:12px;font-weight:700">120 cr</span>
+          <svg style="flex-shrink:0;transition:transform .25s" id="toolDropArrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="tool-drop-menu" id="toolDropMenu">
+          <div class="tdi-group">🎥 Video Generation</div>
+          <div class="tdi" onclick="selectTool('ttv','Text to Video','🎬','120 cr')">🎬 Text to Video <span class="tdi-cr">120 cr</span></div>
+          <div class="tdi" onclick="selectTool('itv','Image to Video','🖼️','60 cr')">🖼️ Image to Video <span class="tdi-cr">60 cr</span></div>
+          <div class="tdi" onclick="selectTool('stv','Script to Video','📝','100 cr')">📝 Script to Video <span class="tdi-cr">100 cr</span></div>
+          <div class="tdi" onclick="selectTool('pa','Photo Animate','✨','25 cr')">✨ Photo Animate <span class="tdi-cr">25 cr</span></div>
+          <div class="tdi" onclick="selectTool('tp','Talking Photo','🗣️','60 cr')">🗣️ Talking Photo <span class="tdi-cr">60 cr</span></div>
+          <div class="tdi" onclick="selectTool('vtv','Video to Video','🔄','70 cr')">🔄 Video to Video <span class="tdi-cr">70 cr</span></div>
+          <div class="tdi-group">👤 Face & Avatar</div>
+          <div class="tdi" onclick="selectTool('fs','Face Swap','🔀','80 cr')">🔀 Face Swap <span class="tdi-cr">80 cr</span></div>
+          <div class="tdi" onclick="selectTool('ls','Lip Sync','💋','150 cr')">💋 Lip Sync <span class="tdi-cr">150 cr</span></div>
+          <div class="tdi" onclick="selectTool('ac','Avatar Create','🤖','100 cr')">🤖 Avatar Create <span class="tdi-cr">100 cr</span></div>
+          <div class="tdi" onclick="selectTool('ta','Talking Avatar','🎭','80 cr')">🎭 Talking Avatar <span class="tdi-cr">80 cr</span></div>
+          <div class="tdi" onclick="selectTool('dg','Dance Generator','💃','70 cr')">💃 Dance Generator <span class="tdi-cr">70 cr</span></div>
+          <div class="tdi-group">🎵 Audio</div>
+          <div class="tdi" onclick="selectTool('se','Sound Effects','🔊','25 cr')">🔊 Sound Effects <span class="tdi-cr">25 cr</span></div>
+          <div class="tdi-group">✂️ Video Editing</div>
+          <div class="tdi" onclick="selectTool('br','Background Remove','🗑️','20 cr')">🗑️ Background Remove <span class="tdi-cr">20 cr</span></div>
+          <div class="tdi" onclick="selectTool('aie','AI Enhance','⬆️','30 cr')">⬆️ AI Enhance <span class="tdi-cr">30 cr</span></div>
+          <div class="tdi" onclick="selectTool('or','Object Remove','✂️','35 cr')">✂️ Object Remove <span class="tdi-cr">35 cr</span></div>
+          <div class="tdi" onclick="selectTool('cap','Auto Captions','💬','15 cr')">💬 Auto Captions <span class="tdi-cr">15 cr</span></div>
+          <div class="tdi" onclick="selectTool('stt','Style Transfer','🎨','55 cr')">🎨 Style Transfer <span class="tdi-cr">55 cr</span></div>
+        </div>
+      </div>
+
+      <textarea class="gen-ta" id="promptArea" placeholder="Apna video describe karo... e.g. 'Bollywood actress dancing at golden hour'"></textarea>
+
       <div class="gen-opts">
         <div class="gog">
           <label class="glbl">Quality</label>
@@ -1264,26 +1290,27 @@ body::before{
           </div>
         </div>
       </div>
+
       <div class="gen-foot">
         <div>
           <div class="cr-badge" id="crBadge">204 cr</div>
           <div class="cr-sub" id="crSub">1080p · 10s · Text to Video</div>
         </div>
-        <button type="button" class="gen-go" onclick="openModal('signup')">Generate →</button>
+        <button type="button" class="gen-go" onclick="currentUser ? alert('Dashboard coming soon!') : openModal('signup')">Generate →</button>
       </div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:16px">
-      <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;aspect-ratio:16/9;position:relative">
-        <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover">
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-network-background-34494-large.mp4" type="video/mp4">
-        </video>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(4,4,8,.8),transparent 60%)"></div>
-        <div style="position:absolute;bottom:16px;left:16px;font-size:11px;color:var(--p2);font-weight:700;text-transform:uppercase;letter-spacing:2px">Preview Output</div>
+
+    <div class="gen-preview-col">
+      <div class="gen-preview-box">
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(34,197,94,.4)" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <div style="font-size:11px;color:var(--muted2);text-transform:uppercase;letter-spacing:2px">Preview Output</div>
+        </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
-        <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--r);padding:16px;text-align:center"><div style="font-family:'Sora',sans-serif;font-size:24px;font-weight:900;background:linear-gradient(135deg,var(--p2),var(--b2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">18s</div><div style="font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:2px">Avg Time</div></div>
-        <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--r);padding:16px;text-align:center"><div style="font-family:'Sora',sans-serif;font-size:24px;font-weight:900;background:linear-gradient(135deg,var(--p2),var(--b2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">4K</div><div style="font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:2px">Max Quality</div></div>
-        <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--r);padding:16px;text-align:center"><div style="font-family:'Sora',sans-serif;font-size:24px;font-weight:900;background:linear-gradient(135deg,var(--p2),var(--b2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">3m</div><div style="font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:2px">Max Length</div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px">
+        <div class="gen-stat-box"><div class="gen-stat-num">18s</div><div class="gen-stat-lbl">Avg Time</div></div>
+        <div class="gen-stat-box"><div class="gen-stat-num">4K</div><div class="gen-stat-lbl">Max Quality</div></div>
+        <div class="gen-stat-box"><div class="gen-stat-num">3m</div><div class="gen-stat-lbl">Max Length</div></div>
       </div>
     </div>
   </div>
@@ -2129,8 +2156,10 @@ let W, H, pts = [];
 function rsz() { W = pc.width = innerWidth; H = pc.height = innerHeight; }
 rsz();
 window.addEventListener('resize', () => { rsz(); initPts(); }, { passive: true });
+const isMobile = window.innerWidth <= 768;
 function initPts() {
   pts = [];
+  if (isMobile) return;
   const n = Math.floor(W * H / 16000);
   for (let i = 0; i < n; i++) pts.push({
     x: Math.random() * W, y: Math.random() * H,
@@ -2175,16 +2204,42 @@ document.addEventListener('mousemove', e => { opx = (e.clientX / W - .5) * 18; o
 const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: .07, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => ro.observe(el));
 
-// ═══ CREDITS CALCULATOR ═══
-const toolCredits = { ttv: 120, itv: 60, stv: 100, pa: 25, tp: 60, vtv: 70, ve: 50, fs: 80, ls: 150, ac: 100, ta: 80, at_cs: 40, vc_cs: 50, vt_cs: 45, mg_cs: 40, se: 25, br: 20, aie: 30, or: 35, sr: 30, cg: 20, vs_cs: 25, sm_cs: 25, stt: 55, cap: 15, tl_cs: 25, dg: 70 };
-const toolNames = { ttv: 'Text to Video', itv: 'Image to Video', stv: 'Script to Video', pa: 'Photo Animate', tp: 'Talking Photo', vtv: 'Video to Video', ve: 'Video Extend', fs: 'Face Swap', ls: 'Lip Sync', ac: 'Avatar Create', ta: 'Talking Avatar', at_cs: 'Age Transform', vc_cs: 'Voice Clone', vt_cs: 'Video Translate', mg_cs: 'Music Generator', se: 'Sound Effects', br: 'Background Remove', aie: 'AI Enhance', or: 'Object Remove', sr: 'Sky Replace', cg: 'Color Grading', vs_cs: 'Video Stabilizer', sm_cs: 'Slow Motion', stt: 'Style Transfer', cap: 'Auto Captions', tl_cs: 'Time Lapse', dg: 'Dance Generator' };
-const qM = { '720p': 1, '1080p': 1.7, '4K': 3.5 }, dM = { '5': 1, '10': 1.7, '30': 3, '60': 5, '120': 8, '180': 11 };
+// ═══ TOOL DROPDOWN ═══
 let cT = 'ttv', cQ = '1080p', cD = '10';
+const toolCredits = { ttv:120, itv:60, stv:100, pa:25, tp:60, vtv:70, ve:50, fs:80, ls:150, ac:100, ta:80, at_cs:40, vc_cs:50, vt_cs:45, mg_cs:40, se:25, br:20, aie:30, or:35, sr:30, cg:20, vs_cs:25, sm_cs:25, stt:55, cap:15, tl_cs:25, dg:70 };
+const qM = { '720p':1, '1080p':1.7, '4K':3.5 }, dM = { '5':1, '10':1.7, '30':3, '60':5, '120':8, '180':11 };
+
+function toggleToolDrop() {
+  const menu = document.getElementById('toolDropMenu');
+  const arrow = document.getElementById('toolDropArrow');
+  menu.classList.toggle('open');
+  arrow.style.transform = menu.classList.contains('open') ? 'rotate(180deg)' : '';
+}
+
+function selectTool(val, name, icon, cr) {
+  cT = val;
+  document.getElementById('toolDropLabel').textContent = name;
+  document.getElementById('toolDropIcon').textContent = icon;
+  document.getElementById('toolDropCr').textContent = cr;
+  document.getElementById('toolDropMenu').classList.remove('open');
+  document.getElementById('toolDropArrow').style.transform = '';
+  updCr();
+}
+
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('toolDropWrap')?.contains(e.target)) {
+    document.getElementById('toolDropMenu')?.classList.remove('open');
+    if(document.getElementById('toolDropArrow')) document.getElementById('toolDropArrow').style.transform = '';
+  }
+});
+
 function updCr() {
   const cr = Math.round((toolCredits[cT] || 80) * (qM[cQ] || 1) * (dM[cD] || 1));
+  const names = { ttv:'Text to Video', itv:'Image to Video', stv:'Script to Video', pa:'Photo Animate', tp:'Talking Photo', vtv:'Video to Video', fs:'Face Swap', ls:'Lip Sync', ac:'Avatar Create', ta:'Talking Avatar', dg:'Dance Generator', se:'Sound Effects', br:'Background Remove', aie:'AI Enhance', or:'Object Remove', cap:'Auto Captions', stt:'Style Transfer' };
   document.getElementById('crBadge').textContent = cr + ' cr';
-  document.getElementById('crSub').textContent = cQ + ' · ' + (cD == '60' ? '1 min' : cD == '120' ? '2 min' : cD == '180' ? '3 min' : cD + 's') + ' · ' + (toolNames[cT] || '');
+  document.getElementById('crSub').textContent = cQ + ' · ' + (cD=='60'?'1 min':cD=='120'?'2 min':cD=='180'?'3 min':cD+'s') + ' · ' + (names[cT] || cT);
 }
+
 function setPill(btn, t, v) {
   btn.parentNode.querySelectorAll('.gpill').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
@@ -2192,7 +2247,6 @@ function setPill(btn, t, v) {
   if (t === 'd') cD = v;
   updCr();
 }
-function updatePanel() { cT = document.getElementById('toolSelect').value; updCr(); }
 updCr();
 
 // ═══ CATEGORY FILTER (Category Strip) ═══
