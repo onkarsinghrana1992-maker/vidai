@@ -2363,21 +2363,20 @@ async function signOut() {
 }
 
 initAuth();
-function handleFileUpload(input) {   const file = input.files[0];   if (file) {     document.getElementById('fileName').textContent = '✅ ' + file.name;     window.uploadedFile = file;   } }  async function generateVideo() {   const prompt = document.getElementById('promptArea')?.value || '';   if (!prompt.trim()) { alert('Prompt likho pehle!'); return; }   const tool = document.getElementById('toolDropLabel')?.textContent || 'Text to Video';   alert('Request mili! Tool: ' + tool + ' | Prompt: ' + prompt); }
 
-Tool: ' + tool + '
-Prompt: ' + prompt + '
+function handleFileUpload(input) {
+  const file = input.files[0];
+  if (file) {
+    document.getElementById('fileName').textContent = '✅ ' + file.name;
+    window.uploadedFile = file;
+  }
+}
 
-API connect hote hi video banega!'); } {   const prompt = document.getElementById('promptArea')?.value || '';   if (!prompt.trim()) { alert('Prompt likho pehle!'); return; }   const tool = document.getElementById('toolDropLabel')?.textContent || 'Text to Video';   alert('✅ Request mili!
-
-Tool: ' + tool + '
-Prompt: ' + prompt + '
-
-API connect hote hi video banega!'); } {
-  const tool = document.getElementById('toolSelect')?.value || 'text-to-video';
+async function generateVideo() {
   const prompt = document.getElementById('promptArea')?.value || '';
-  if (!prompt.trim()) { alert('Prompt likhо pehle!'); return; }
-  alert('Video generation coming soon! Prompt: ' + prompt);
+  if (!prompt.trim()) { alert('Prompt likho pehle!'); return; }
+  const tool = document.getElementById('toolDropLabel')?.textContent || 'Text to Video';
+  alert('Request mili! Tool: ' + tool + ' | Prompt: ' + prompt);
 }
 // ═══ PAYMENT ═══
 async function handlePayment(plan) {
