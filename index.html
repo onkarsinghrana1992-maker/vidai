@@ -2365,7 +2365,7 @@ async function signOut() {
 initAuth();
 async function generateVideo() {
   const tool = document.getElementById('toolSelect')?.value || 'text-to-video';
-  const prompt = document.getElementById('promptInput')?.value || '';
+  const prompt = document.getElementById('promptArea')?.value || '';
   if (!prompt.trim()) { alert('Prompt likhо pehle!'); return; }
   alert('Video generation coming soon! Prompt: ' + prompt);
 }
